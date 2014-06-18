@@ -1,3 +1,6 @@
+// Mandelbrot Set in Rust
+// Copyright 2014 Ralph Giles, GNU GPLv3
+
 struct Complex {
   r: f64,
   i: f64
