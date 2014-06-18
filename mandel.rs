@@ -1,55 +1,39 @@
-// Mandelbrot Set in Rust
-// Copyright 2013 Ralph Giles, GNU GPLv3
+struct Complex {
+  r: f64,
+  i: f64
+}
 
-fn escape(cr: float, ci: float) -> uint {
-  let mut zr = 0.0;
-  let mut zi = 0.0;
-  let mut k = 0u;
-
-  while k < 256 {
-    let zz = zr*zr - zi*zi + cr;
-    zi = 2.0*zr*zi + ci;
-    zr = zz;
-    //io::println(fmt!("  %u %f %f", k, zr, zi));
-    if zr*zr + zi*zi > 4.0 {
-      return k;
+fn escape(c: Complex) -> int {
+  let max = 256;
+  let mut z = Complex { r: 0.0, i: 0.0 };
+  for iter in range(0, max) {
+    if z.r * z.r + z.i * z.i > 4.0 {
+      return iter;
     }
-    k += 1;
+    let zr = z.r * z.r - z.i * z.i + c.r;
+    z.i = 2.0 * z.r * z.i + c.i;
+    z.r = zr;
   }
-
-  return k;
+  return max;
 }
 
 fn main() {
-  let mut y = -1.50;
-  let d = 3.0 / (64 as float);
-
-  let mut j = 0;
-  while j < 64 {
-    let mut x = -2.25;
-    let mut i = 0;
-    while i < 64 {
-      let k = escape(x, y);
-      //io::println(fmt!("%d %d %f %f %u", i, j, x, y, k));
-      if k == 0 {
-        io::print(".");
-      } else if k < 16 {
-        io::print("o");
-      } else if k < 32 {
-        io::print("x");
-      } else if k < 64 {
-        io::print("O");
-      } else if k < 128 {
-        io::print("X");
+  println!("Hello Benoit!");
+  let irange = 40;
+  let jrange = 20;
+  let dr = 3.0 / irange as f64;
+  let di = 3.0 / jrange as f64;
+  for j in range(0, jrange) {
+    let ci = di * j as f64 - 1.5;
+    for i in range(0, irange) {
+      let cr = dr * i as f64 - 2.25;
+      let e = escape(Complex { r: cr, i: ci });
+      if e > 255 {
+        print!("*");
       } else {
-        io::print(" ");
+        print!(" ");
       }
-      x += d;
-      i += 1;
     }
-    io::println("");
-    y += d;
-    j += 1;
+    println!("");
   }
-
 }
