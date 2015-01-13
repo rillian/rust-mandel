@@ -6,7 +6,7 @@ struct Complex {
   i: f64
 }
 
-fn escape(c: Complex) -> int {
+fn escape(c: Complex) -> i32 {
   let max = 256;
   let mut z = Complex { r: 0.0, i: 0.0 };
   for iter in range(0, max) {
