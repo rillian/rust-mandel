@@ -11,5 +11,5 @@ dist:
 
 .PHONEY: all check clean dist
 
-mandel: mandel.rs
+mandel: src/mandel.rs
 	rustc $<
